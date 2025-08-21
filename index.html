@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Burung Hindari Bom</title>
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      overflow: hidden;
+    }
+    canvas {
+      display: block;
+      margin: auto;
+      background: linear-gradient(to bottom, #87CEEB, #fff);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas"></canvas>
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Burung
+    const birdImg = new Image();
+    birdImg.src = "logo.png"; // gunakan logo Anda
+
+    let bird = {
+      x: canvas.width / 2 - 40,
+      y: canvas.height - 100,
+      width: 80,
+      height: 80,
+      speed: 20
+    };
+
+    // Bom
+    let bombs = [];
+    let score = 0;
+    let frame = 0;
+    let gameOver = false;
+
+    function drawBird() {
+      ctx.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
+    }
+
+    function drawBombs() {
+      ctx.fillStyle = "black";
+      for (let b of bombs) {
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function updateBombs() {
+      if (frame % 40 === 0) {
+        bombs.push({
+          x: Math.random() * (canvas.widt*
